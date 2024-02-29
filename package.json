@@ -1,6 +1,9 @@
 {
   "name": "astro-spotify",
+  "description": "Components interacting with the Spotify API.",
   "version": "0.1.0",
+  "repository": "https://github.com/Pramuspl/astro-spotify",
+  "license": "MIT",
   "type": "module",
   "exports": {
     ".": "./index.ts"
@@ -10,7 +13,8 @@
     "index.ts"
   ],
   "keywords": [
-    "astro-component"
+    "astro-component",
+    "spotify"
   ],
   "scripts": {},
   "devDependencies": {
