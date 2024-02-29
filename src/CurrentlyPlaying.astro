@@ -1,0 +1,161 @@
+---
+import { getCurrentlyPlayed } from "./apiHandler.ts";
+import type { Track } from "@spotify/web-api-ts-sdk";
+import Equalizer from "./assets/equalizer.astro";
+import Vinyl from "./assets/vinyl.astro";
+
+interface Props {
+  clientID: string;
+  clientSecret: string;
+  refreshToken: string;
+  onlyTracks?: boolean;
+}
+
+const { clientID, clientSecret, refreshToken, onlyTracks } = Astro.props;
+
+const currentlyPlaying = await getCurrentlyPlayed(
+  clientID,
+  clientSecret,
+  refreshToken
+);
+
+// TODO: add support for 'episodes' - podcasts
+const track = currentlyPlaying?.item as Track;
+
+const isATrack =
+  onlyTracks && currentlyPlaying?.currently_playing_type !== "track";
+
+const trackInfo =
+  track &&
+  (isATrack
+    ? null
+    : {
+        track: {
+          url: track.external_urls.spotify,
+          title: track.name,
+        },
+        album: {
+          name: track.album.name,
+          image: track.album.images.at(-1),
+        },
+        artists: track.artists.map((artist) => ({
+          name: artist.name,
+        })),
+      });
+---
+
+{
+  trackInfo ? (
+    <div>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        <a
+          href={trackInfo?.track.url}
+          target="_blank"
+          style={{ overflow: "hidden" }}
+        >
+          <div
+            style={{ display: "flex", "flex-grow": 1, alignItems: "center" }}
+          >
+            <div style={{ marginRight: "0.5rem" }}>
+              <img
+                style={{ width: "64px", minWidth: "64px" }}
+                src={trackInfo?.album.image?.url}
+              />
+            </div>
+            <div style={{ overflow: "hidden" }}>
+              <div class="text-container-track">
+                <div class="text-track">
+                  <strong>{trackInfo?.track.title}</strong>
+                </div>
+              </div>
+              <div class="text-container-artists">
+                <div class="text-artists">
+                  {trackInfo?.artists.map((artist) => artist.name).join(", ")}
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+        <div style={{ marginLeft: "0.5rem" }}>
+          <Equalizer style={{ minWidth: "100%" }} />
+        </div>
+      </div>
+    </div>
+  ) : (
+    <div style={{ display: "flex", alignItems: "center" }}>
+      <div style={{ marginRight: "0.5rem" }}>
+        <Vinyl />
+      </div>
+      <div style={{ fontSize: ".7rem" }}>
+        Right now my player is silent, come back later 🎧
+      </div>
+    </div>
+  )
+}
+
+<style>
+  .text-container-track,
+  .text-container-artists {
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+  }
+
+  .animate-slide {
+    animation: slide 5s infinite alternate linear;
+  }
+
+  @keyframes slide {
+    0% {
+      transform: translateX(5%);
+    }
+    100% {
+      transform: translateX(calc(50% - var(--offset)));
+    }
+  }
+</style>
+
+<script>
+  function applyScroll(parent: HTMLDivElement, child: HTMLDivElement) {
+    if (child.scrollWidth > parent.offsetWidth) {
+      const offset = child.scrollWidth - parent.offsetWidth + 60;
+
+      child.style.setProperty("--offset", offset + "px");
+
+      const duration = offset / 50;
+
+      child.style.animationDuration = duration + "s";
+      child.classList.add("animate-slide");
+    } else {
+      child.style.setProperty("--offset", "0px");
+      child.classList.remove("animate-slide");
+    }
+  }
+
+  window.addEventListener("DOMContentLoaded", () => {
+    const textContainerArtists: HTMLDivElement | null = document.querySelector(
+      ".text-container-artists"
+    );
+    const textArtists: HTMLDivElement | null =
+      document.querySelector(".text-artists");
+
+    if (textContainerArtists && textArtists) {
+      applyScroll(textContainerArtists, textArtists);
+    }
+
+    const textContainerTrack: HTMLDivElement | null = document.querySelector(
+      ".text-container-track"
+    );
+    const textTrack: HTMLDivElement | null =
+      document.querySelector(".text-track");
+
+    if (textTrack && textContainerTrack) {
+      applyScroll(textContainerTrack, textTrack);
+    }
+  });
+</script>
