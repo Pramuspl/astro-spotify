@@ -1,5 +1,11 @@
 # astro-spotify
 
+## 0.1.2
+
+### Patch Changes
+
+- adjusted for SSR and fixed CSS
+
 ## 0.1.1
 
 ### Patch Changes
