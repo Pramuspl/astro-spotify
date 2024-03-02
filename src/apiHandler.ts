@@ -1,5 +1,7 @@
 import { SpotifyApi, type PlaybackState } from "@spotify/web-api-ts-sdk";
 
+export const prerender = false;
+
 type AccessToken = {
   access_token: string;
   token_type: string;

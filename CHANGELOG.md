@@ -1,5 +1,11 @@
 # astro-spotify
 
+## 0.1.3
+
+### Patch Changes
+
+- fix SSR
+
 ## 0.1.2
 
 ### Patch Changes
