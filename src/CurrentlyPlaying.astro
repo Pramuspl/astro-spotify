@@ -1,6 +1,4 @@
 ---
-export const prerender = false;
-
 import { getCurrentlyPlayed } from "./apiHandler.ts";
 import type { Track } from "@spotify/web-api-ts-sdk";
 import Equalizer from "./assets/equalizer.astro";
@@ -67,6 +65,7 @@ const trackInfo =
               <img
                 style={{ width: "64px", minWidth: "64px" }}
                 src={trackInfo?.album.image?.url}
+                alt={`Album cover for ${trackInfo.album.name}`}
               />
             </div>
             <div style={{ overflow: "hidden" }}>

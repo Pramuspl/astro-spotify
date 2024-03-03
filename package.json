@@ -1,7 +1,7 @@
 {
   "name": "astro-spotify",
   "description": "Components interacting with the Spotify API.",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "repository": "https://github.com/Pramuspl/astro-spotify",
   "license": "MIT",
   "type": "module",

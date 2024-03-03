@@ -1,5 +1,11 @@
 # astro-spotify
 
+## 0.1.4
+
+### Patch Changes
+
+- add 'alt' property to album cover
+
 ## 0.1.3
 
 ### Patch Changes
