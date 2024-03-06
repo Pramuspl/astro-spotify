@@ -2,6 +2,14 @@
 
 This package contains components interacting with the Spotify API.
 
+## Installation
+
+```bash
+npm install astro-spotify
+pnpm add astro-spotify
+yarn add astro-spotify
+```
+
 ## Setup
 
 To use this package, you need a [Spotify Developer account](https://developer.spotify.com/). Create an app there to get a `Client ID` and `Client secret`.
@@ -67,6 +75,8 @@ If it does, you're ready to go!
 
 ### Currently Playing
 
+> ⚠️ This component requires the `user-read-currently-playing` scope.
+
 The component allows you to display the currently playing song.
 
 ```TypeScript
@@ -79,15 +89,12 @@ import { CurrentlyPlaying } from "astro-spotify";
 />
 ```
 
-## 🧞 Commands
+## FAQ
 
-All commands are run from the root of the project, from a terminal:
+### On my deployed website, the Spotify component is "frozen" and not updating on page refresh. Why?
 
-| Command       | Action                                                                                                                                                                                                                           |
-| :------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `npm link`    | Registers this package locally. Run `npm link my-component-library` in an Astro project to install your components                                                                                                               |
-| `npm publish` | [Publishes](https://docs.npmjs.com/creating-and-publishing-unscoped-public-packages#publishing-unscoped-public-packages) this package to NPM. Requires you to be [logged in](https://docs.npmjs.com/cli/v8/commands/npm-adduser) |
+Your website was probably rendered using SSG (Static Site Generation). This means that it was rendered once at build time and shows the state at that time.
 
-```
+To fix this, you need to use SSR (Server Side Rendering) either on your entire website (`server` rendering mode) or at the path containing the component (`hybrid`).
 
-```
+You can read more about it in [Astro Docs](https://docs.astro.build/en/guides/server-side-rendering/).
