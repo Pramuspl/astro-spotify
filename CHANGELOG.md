@@ -1,5 +1,12 @@
 # astro-spotify
 
+## 0.1.5
+
+### Patch Changes
+
+- tidied up authentication
+- README update
+
 ## 0.1.4
 
 ### Patch Changes

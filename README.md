@@ -57,11 +57,11 @@ const refreshToken = await getRefreshToken(
 console.log(refreshToken);
 ```
 
-Save the token in your `.env` file as `SPOTIFY_REFRESH_TOKEN` and remove the `getRefreshToken` call from your code as you won't need it anymore.
+Save the token in your project's `.env` file as `SPOTIFY_REFRESH_TOKEN` and remove the `getRefreshToken` call from your code as you won't need it anymore.
 
 > ⚠️ You can only run `getRefreshToken()` once. Subsequent runs will return an error and you'd need to request a new authorization code from the previous step.
 
-Your `.env` file should contain following properties:
+Your project's `.env` file should contain following properties:
 
 ```
 SPOTIFY_CLIENT_ID=
@@ -82,11 +82,7 @@ The component allows you to display the currently playing song.
 ```TypeScript
 import { CurrentlyPlaying } from "astro-spotify";
 
-<CurrentlyPlaying
-  clientID={import.meta.env.SPOTIFY_CLIENT_ID}
-  clientSecret={import.meta.env.SPOTIFY_CLIENT_SECRET}
-  refreshToken={import.meta.env.SPOTIFY_REFRESH_TOKEN}
-/>
+<CurrentlyPlaying />
 ```
 
 ## FAQ

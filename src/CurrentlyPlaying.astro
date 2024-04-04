@@ -5,13 +5,14 @@ import Equalizer from "./assets/equalizer.astro";
 import Vinyl from "./assets/vinyl.astro";
 
 interface Props {
-  clientID: string;
-  clientSecret: string;
-  refreshToken: string;
   onlyTracks?: boolean;
 }
 
-const { clientID, clientSecret, refreshToken, onlyTracks } = Astro.props;
+const {onlyTracks } = Astro.props;
+
+const clientID=import.meta.env.SPOTIFY_CLIENT_ID
+const clientSecret=import.meta.env.SPOTIFY_CLIENT_SECRET
+const refreshToken=import.meta.env.SPOTIFY_REFRESH_TOKEN
 
 const currentlyPlaying = await getCurrentlyPlayed(
   clientID,
