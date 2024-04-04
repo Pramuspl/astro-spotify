@@ -82,7 +82,11 @@ The component allows you to display the currently playing song.
 ```TypeScript
 import { CurrentlyPlaying } from "astro-spotify";
 
-<CurrentlyPlaying />
+<CurrentlyPlaying
+  clientID={import.meta.env.SPOTIFY_CLIENT_ID}
+  clientSecret={import.meta.env.SPOTIFY_CLIENT_SECRET}
+  refreshToken={import.meta.env.SPOTIFY_REFRESH_TOKEN}
+/>
 ```
 
 ## FAQ
